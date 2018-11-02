@@ -144,7 +144,7 @@ function eu_cookie_compliance_page_build(&$page) {
       // Initialize some needed popup settings messages.
       $popup_settings_messages = array(
         'popup_agree_button_message' => t('OK, I agree'),
-        'popup_disagree_button_message' => t('More info'),
+        'popup_more_info_button_message' => t('More info'),
         'popup_hide_button_message' => t('Hide'),
         'popup_find_more_button_message' => t('More info'),
       );
@@ -171,9 +171,9 @@ function eu_cookie_compliance_page_build(&$page) {
         $data['css'] .= '#sliding-popup.sliding-popup-top { position: fixed; }';
       }
 
-      $show_disagree_buttons = TRUE;
-      if (array_key_exists('show_disagree_button', $popup_settings) && $popup_settings['show_disagree_button'] === 0) {
-        $show_disagree_buttons = FALSE;
+      $show_more_info_button = TRUE;
+      if (array_key_exists('show_more_info', $popup_settings) && $popup_settings['show_more_info'] === 0) {
+        $show_more_info_button = FALSE;
       }
 
       $method = !empty($popup_settings['method']) ? $popup_settings['method'] : 'default';
@@ -224,7 +224,7 @@ function eu_cookie_compliance_page_build(&$page) {
       $html_info = theme('eu_cookie_compliance_popup_info', array(
         'message' => check_markup($popup_text_info, $popup_settings['popup_info']['format'], FALSE),
         'agree_button' => $primary_button_label,
-        'disagree_button' => $show_disagree_buttons ? $popup_settings['popup_disagree_button_message'] : FALSE,
+        'more_info_button' => $show_more_info_button ? $popup_settings['popup_more_info_button_message'] : FALSE,
         'secondary_button_label' => $secondary_button_label,
         'primary_button_class' => $primary_button_class,
         'secondary_button_class' => $secondary_button_class,
@@ -232,7 +232,7 @@ function eu_cookie_compliance_page_build(&$page) {
       $mobile_html_info = theme('eu_cookie_compliance_popup_info', array(
         'message' => check_markup($mobile_popup_text_info, $popup_settings['popup_info']['format'], FALSE),
         'agree_button' => $primary_button_label,
-        'disagree_button' => $show_disagree_buttons ? $popup_settings['popup_disagree_button_message'] : FALSE,
+        'more_info_button' => $show_more_info_button ? $popup_settings['popup_more_info_button_message'] : FALSE,
         'secondary_button_label' => $secondary_button_label,
         'primary_button_class' => $primary_button_class,
         'secondary_button_class' => $secondary_button_class,
@@ -240,7 +240,7 @@ function eu_cookie_compliance_page_build(&$page) {
       $html_agreed = theme('eu_cookie_compliance_popup_agreed', array(
         'message' => check_markup($popup_text_agreed, $popup_settings['popup_agreed']['format'], FALSE),
         'hide_button' => $popup_settings['popup_hide_button_message'],
-        'find_more_button' => $show_disagree_buttons ? $popup_settings['popup_find_more_button_message'] : FALSE,
+        'find_more_button' => $show_more_info_button ? $popup_settings['popup_find_more_button_message'] : FALSE,
       ));
       $withdraw_markup = theme('eu_cookie_compliance_withdraw', array(
         'message' => check_markup($withdraw_markup, $popup_settings['withdraw_message']['format'], FALSE),
@@ -361,7 +361,7 @@ function eu_cookie_compliance_theme() {
       'variables' => array(
         'message' => NULL,
         'agree_button' => NULL,
-        'disagree_button' => NULL,
+        'more_info_button' => NULL,
         'secondary_button_label' => NULL,
         'primary_button_class' => NULL,
         'secondary_button_class' => NULL,
@@ -406,7 +406,7 @@ function eu_cookie_compliance_get_settings($setting = 'all') {
   // when using translations of the variables.
   $required_settings = array(
     'consent_storage_method' => 'do_not_store',
-    'show_disagree_button' => TRUE,
+    'show_more_info' => TRUE,
   );
 
   if ($setting == 'all') {

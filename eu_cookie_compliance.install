@@ -99,7 +99,7 @@ function eu_cookie_compliance_requirements($phase) {
     module_load_include('module', 'eu_cookie_compliance', 'eu_cookie_compliance');
     $settings = eu_cookie_compliance_get_settings();
 
-    if (!empty($settings['popup_link']) && $settings['popup_link'] == '<front>' && !empty($settings['show_disagree_button']) && $settings['show_disagree_button']) {
+    if (!empty($settings['popup_link']) && $settings['popup_link'] == '<front>' && !empty($settings['show_more_info']) && $settings['show_more_info']) {
       $requirements['eu_cookie_compliance'] = array(
         'title' => t('EU Cookie Compliance'),
         'severity' => REQUIREMENT_ERROR,
@@ -412,4 +412,21 @@ function eu_cookie_compliance_update_7010() {
       }
     }
   }
+}
+
+/**
+ * Renaming variables show_disagree_button and popup_disagree_button_message.
+ */
+function eu_cookie_compliance_update_7011() {
+  $eu_cookie_settings = variable_get('eu_cookie_compliance', []);
+  if (!empty($eu_cookie_settings['show_disagree_button'])) {
+    $eu_cookie_settings['show_more_info'] = $eu_cookie_settings['show_disagree_button'];
+    unset($eu_cookie_settings['show_disagree_button']);
+  }
+
+  if (!empty($eu_cookie_settings['popup_disagree_button_message'])) {
+    $eu_cookie_settings['popup_more_info_button_message'] = $eu_cookie_settings['popup_disagree_button_message'];
+    unset($eu_cookie_settings['popup_disagree_button_message']);
+  }
+  variable_set('eu_cookie_compliance', $eu_cookie_settings);
 }

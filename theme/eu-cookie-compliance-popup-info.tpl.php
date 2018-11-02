@@ -14,7 +14,7 @@
  * - $message:  Contains the text that will be display within the pop-up
  * - $agree_button: Label for the primary/agree button. Note that this is the
  *   primary button. For backwards compatibility, the name remains agree_button.
- * - $disagree_button: Contains Cookie policy button title. (Note: for
+ * - $more_info_button: Contains Cookie policy button title. (Note: for
  *   historical reasons, this label is called "disagree" even though it just
  *   displays the privacy policy.)
  * - $secondary_button_label: Contains the action button label. The current
@@ -29,8 +29,8 @@
   <div class ="popup-content info">
     <div id="popup-text">
       <?php print $message ?>
-      <?php if ($disagree_button) : ?>
-        <button type="button" class="find-more-button eu-cookie-compliance-more-button"><?php print $disagree_button; ?></button>
+      <?php if ($more_info_button) : ?>
+        <button type="button" class="find-more-button eu-cookie-compliance-more-button"><?php print $more_info_button; ?></button>
       <?php endif; ?>
     </div>
     <div id="popup-buttons">

@@ -260,11 +260,11 @@ function eu_cookie_compliance_admin_form(array $form, array $form_state) {
     '#required' => TRUE,
   );
 
-  $form['popup_message']['eu_cookie_compliance']['show_disagree_button'] = array(
+  $form['popup_message']['eu_cookie_compliance']['show_more_info'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show "Cookie policy" and "More info" buttons'),
     '#description' => t('If this option is checked, the Cookie policy button will be shown on the site. Disabling this option will hide both the "Cookie policy" button on the information banner and the "More info" button on the "Thank you" banner.'),
-    '#default_value' => isset($popup_settings['show_disagree_button']) ? $popup_settings['show_disagree_button'] : TRUE,
+    '#default_value' => isset($popup_settings['show_more_info']) ? $popup_settings['show_more_info'] : TRUE,
     '#states' => array(
       'visible' => array(
         "input[name='eu_cookie_compliance[method]']" => array('value' => 'default'),
@@ -272,10 +272,10 @@ function eu_cookie_compliance_admin_form(array $form, array $form_state) {
     ),
   );
 
-  $form['popup_message']['eu_cookie_compliance']['popup_disagree_button_message'] = array(
+  $form['popup_message']['eu_cookie_compliance']['popup_more_info_button_message'] = array(
     '#type' => 'textfield',
     '#title' => t('Cookie policy button label'),
-    '#default_value' => isset($popup_settings['popup_disagree_button_message']) ? $popup_settings['popup_disagree_button_message'] : t('More info'),
+    '#default_value' => isset($popup_settings['popup_more_info_button_message']) ? $popup_settings['popup_more_info_button_message'] : t('More info'),
     '#size' => 30,
     '#states' => array(
       'visible' => array(
@@ -770,7 +770,7 @@ function eu_cookie_compliance_admin_form_validate(array $form, array &$form_stat
     form_set_error('eu_cookie_compliance][popup_link', t('Looks like your privacy policy link contains a fragment #. You should make this an absolute url, e.g. @link', array('@link' => $popup_link)));
   }
 
-  if ($popup_link == '<front>' && $form_state['values']['eu_cookie_compliance']['show_disagree_button']) {
+  if ($popup_link == '<front>' && $form_state['values']['eu_cookie_compliance']['show_more_info']) {
     drupal_set_message(t('Your privacy policy link is pointing at the front page. This is the default value after installation, and unless your privacy policy is actually posted at the front page, you will need to create a separate page for the privacy policy and link to that page.'), 'error');
   }
 
@@ -785,7 +785,7 @@ function eu_cookie_compliance_admin_form_validate(array $form, array &$form_stat
   $method = $form_state['values']['eu_cookie_compliance']['method'];
 
   if ($method != 'default') {
-    $form_state['values']['eu_cookie_compliance']['show_disagree_button'] = TRUE;
+    $form_state['values']['eu_cookie_compliance']['show_more_info'] = TRUE;
     $form_state['values']['eu_cookie_compliance']['popup_clicking_confirmation'] = FALSE;
     $form_state['values']['eu_cookie_compliance']['popup_scrolling_confirmation'] = FALSE;
   }
